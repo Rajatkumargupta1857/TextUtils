@@ -1,18 +1,67 @@
-
 import './App.css';
-// import About from './components/About';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
+import Alert from './components/Alert';
+import About from './components/About';
+import { useState } from 'react';
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
+
+  const [mode, setMode] = useState("light");   // where dark mode is enable or not
+  const [alert, setalert] = useState(null);
+
+const showAlert=(massage, type)=>{
+ setalert({
+  msg:massage,
+  type:type
+ })
+ setTimeout(() => {
+  setalert(null);
+ }, 1500);
+}
+
+  const toggleMode=()=>{
+    if(mode==="light")
+    {
+      setMode('dark');
+      document.body.style.backgroundColor="#23243a";
+      showAlert("Dark mode has been Enabled" ,"success");
+     document.title="TextUtil DarkMode";
+
+    //  setInterval(() => {
+    //   document.title="TextUtil is Amazing";
+    //  }, 3000);
+    //  setInterval(() => {
+    //   document.title="Install TextUtil Now";
+    //  }, 1500);
+    }
+    else{
+      setMode('light');
+      document.body.style.backgroundColor="White";
+      showAlert("Light mode has been Enabled" ,"success");
+      document.title="TextUtil DarkMode";
+    }
+ }
   return (
     <>
-     <Navbar title="TextUtils" AboutText="AboutUs" />
-     <div className="container my-3">
-          <TextForm heading="Enter the Text to anilize"/>
-          {/* <About/> */}
-     </div>
+    <Router>
+              {/* <Navbar title="TextUtils" AboutText="AboutUs" /> */}
     
+            <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
+                  <Alert alert={alert} />
+                 <div className="container my-3">
+                  
+                 <Routes> 
+                        
+                        <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Enter the Text to anilize" mode={mode} />} ></Route>
+                        <Route exact path="about" element={<About />} ></Route> 
+                        
+                        
+                  </Routes>                        
+                </div>
+    </Router>  
     </>
 
   );
