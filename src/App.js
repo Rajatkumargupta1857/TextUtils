@@ -29,13 +29,6 @@ const showAlert=(massage, type)=>{
       document.body.style.backgroundColor="#23243a";
       showAlert("Dark mode has been Enabled" ,"success");
      document.title="TextUtil DarkMode";
-
-    //  setInterval(() => {
-    //   document.title="TextUtil is Amazing";
-    //  }, 3000);
-    //  setInterval(() => {
-    //   document.title="Install TextUtil Now";
-    //  }, 1500);
     }
     else{
       setMode('light');
@@ -47,20 +40,14 @@ const showAlert=(massage, type)=>{
   return (
     <>
     <Router>
-              {/* <Navbar title="TextUtils" AboutText="AboutUs" /> */}
-    
             <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
                   <Alert alert={alert} />
                  <div className="container my-3">
-                  
-                 <Routes> 
-                        
-                        <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Enter the Text to anilize" mode={mode} />} ></Route>
-                        <Route exact path="about" element={<About />} ></Route> 
-                        
-                        
-                  </Routes>                        
-                </div>
+                    <Routes>  
+                            <Route exact path="/" element={<TextForm showAlert={showAlert} heading="Try TextUtils - Word Counter, Character Counter, Remove extra space" mode={mode} />} ></Route>
+                            <Route exact path="about" element={<About mode={mode}/>} ></Route> 
+                      </Routes>                        
+                  </div>
     </Router>  
     </>
 
